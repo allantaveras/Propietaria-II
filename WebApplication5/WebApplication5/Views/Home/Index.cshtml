@@ -1,0 +1,27 @@
+﻿@model IEnumerable<WebApplication5.Models.Posicione>
+
+@{
+    ViewBag.Title = "Sistema de RRHH";
+}
+
+<div class="jumbotron">
+    <h1>Bienvenido al Sistema de RR.HH.!</h1>
+</div>
+<h3>Posiciones Disponibles</h3>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Nombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Salario_Maximo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Salario_Minimo)
+        </th>
+        <th></th>
+    </tr>
+  
+
+   
+</table>

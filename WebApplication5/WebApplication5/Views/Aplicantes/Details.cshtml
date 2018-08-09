@@ -1,0 +1,58 @@
+﻿@model WebApplication5.Models.Aplicante
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Aplicante</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Salario_Esperado)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Salario_Esperado)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Fecha_Ultima_Aplicacion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Fecha_Ultima_Aplicacion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Cedula)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cedula)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Posicione.Nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Posicione.Nombre)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

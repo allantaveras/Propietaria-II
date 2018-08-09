@@ -1,0 +1,427 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="RRHHModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Aplicantes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="IdPosicion" Type="int" />
+          <Property Name="Salario_Esperado" Type="int" Nullable="false" />
+          <Property Name="Fecha_Ultima_Aplicacion" Type="date" />
+          <Property Name="Cedula" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AplicantesIdiomas">
+          <Key>
+            <PropertyRef Name="IdAplicante" />
+            <PropertyRef Name="IdIdiomas" />
+          </Key>
+          <Property Name="IdAplicante" Type="int" Nullable="false" />
+          <Property Name="IdIdiomas" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ExperienciaLaborales">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Compañia" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Posicion" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Fecha_Inicio" Type="date" Nullable="false" />
+          <Property Name="Fecha_Fin" Type="date" />
+          <Property Name="AplicanteId" Type="int" />
+        </EntityType>
+        <EntityType Name="GradoEstudios">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre_Institucion" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Titulo" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Fecha_Graduacion" Type="date" />
+          <Property Name="AplicanteId" Type="int" />
+        </EntityType>
+        <EntityType Name="Idiomas">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Posiciones">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Salario_Maximo" Type="int" Nullable="false" />
+          <Property Name="Salario_Minimo" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Recomendaciones">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre_Empleado_Recomienda" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="AplicanteId" Type="int" />
+        </EntityType>
+        <Association Name="FK__Aplicante__IdApl__403A8C7D">
+          <End Role="Aplicantes" Type="Self.Aplicantes" Multiplicity="1" />
+          <End Role="AplicantesIdiomas" Type="Self.AplicantesIdiomas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Aplicantes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AplicantesIdiomas">
+              <PropertyRef Name="IdAplicante" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Aplicante__IdIdi__412EB0B6">
+          <End Role="Idiomas" Type="Self.Idiomas" Multiplicity="1" />
+          <End Role="AplicantesIdiomas" Type="Self.AplicantesIdiomas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Idiomas">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AplicantesIdiomas">
+              <PropertyRef Name="IdIdiomas" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Aplicante__IdPos__3C69FB99">
+          <End Role="Posiciones" Type="Self.Posiciones" Multiplicity="0..1" />
+          <End Role="Aplicantes" Type="Self.Aplicantes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Posiciones">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Aplicantes">
+              <PropertyRef Name="IdPosicion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Experienc__Aplic__440B1D61">
+          <End Role="Aplicantes" Type="Self.Aplicantes" Multiplicity="0..1" />
+          <End Role="ExperienciaLaborales" Type="Self.ExperienciaLaborales" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Aplicantes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ExperienciaLaborales">
+              <PropertyRef Name="AplicanteId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__GradoEstu__Aplic__49C3F6B7">
+          <End Role="Aplicantes" Type="Self.Aplicantes" Multiplicity="0..1" />
+          <End Role="GradoEstudios" Type="Self.GradoEstudios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Aplicantes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="GradoEstudios">
+              <PropertyRef Name="AplicanteId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Recomenda__Aplic__46E78A0C">
+          <End Role="Aplicantes" Type="Self.Aplicantes" Multiplicity="0..1" />
+          <End Role="Recomendaciones" Type="Self.Recomendaciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Aplicantes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Recomendaciones">
+              <PropertyRef Name="AplicanteId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="RRHHModelStoreContainer">
+          <EntitySet Name="Aplicantes" EntityType="Self.Aplicantes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AplicantesIdiomas" EntityType="Self.AplicantesIdiomas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ExperienciaLaborales" EntityType="Self.ExperienciaLaborales" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GradoEstudios" EntityType="Self.GradoEstudios" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Idiomas" EntityType="Self.Idiomas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Posiciones" EntityType="Self.Posiciones" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Recomendaciones" EntityType="Self.Recomendaciones" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Aplicante__IdApl__403A8C7D" Association="Self.FK__Aplicante__IdApl__403A8C7D">
+            <End Role="Aplicantes" EntitySet="Aplicantes" />
+            <End Role="AplicantesIdiomas" EntitySet="AplicantesIdiomas" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Aplicante__IdIdi__412EB0B6" Association="Self.FK__Aplicante__IdIdi__412EB0B6">
+            <End Role="Idiomas" EntitySet="Idiomas" />
+            <End Role="AplicantesIdiomas" EntitySet="AplicantesIdiomas" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Aplicante__IdPos__3C69FB99" Association="Self.FK__Aplicante__IdPos__3C69FB99">
+            <End Role="Posiciones" EntitySet="Posiciones" />
+            <End Role="Aplicantes" EntitySet="Aplicantes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Experienc__Aplic__440B1D61" Association="Self.FK__Experienc__Aplic__440B1D61">
+            <End Role="Aplicantes" EntitySet="Aplicantes" />
+            <End Role="ExperienciaLaborales" EntitySet="ExperienciaLaborales" />
+          </AssociationSet>
+          <AssociationSet Name="FK__GradoEstu__Aplic__49C3F6B7" Association="Self.FK__GradoEstu__Aplic__49C3F6B7">
+            <End Role="Aplicantes" EntitySet="Aplicantes" />
+            <End Role="GradoEstudios" EntitySet="GradoEstudios" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Recomenda__Aplic__46E78A0C" Association="Self.FK__Recomenda__Aplic__46E78A0C">
+            <End Role="Aplicantes" EntitySet="Aplicantes" />
+            <End Role="Recomendaciones" EntitySet="Recomendaciones" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="RRHHModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Aplicante">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IdPosicion" Type="Int32" />
+          <Property Name="Salario_Esperado" Type="Int32" Nullable="false" />
+          <Property Name="Fecha_Ultima_Aplicacion" Type="DateTime" Precision="0" />
+          <Property Name="Cedula" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Posicione" Relationship="Self.FK__Aplicante__IdPos__3C69FB99" FromRole="Aplicantes" ToRole="Posiciones" />
+          <NavigationProperty Name="ExperienciaLaborales" Relationship="Self.FK__Experienc__Aplic__440B1D61" FromRole="Aplicantes" ToRole="ExperienciaLaborales" />
+          <NavigationProperty Name="GradoEstudios" Relationship="Self.FK__GradoEstu__Aplic__49C3F6B7" FromRole="Aplicantes" ToRole="GradoEstudios" />
+          <NavigationProperty Name="Recomendaciones" Relationship="Self.FK__Recomenda__Aplic__46E78A0C" FromRole="Aplicantes" ToRole="Recomendaciones" />
+          <NavigationProperty Name="Idiomas" Relationship="Self.AplicantesIdiomas" FromRole="Aplicantes" ToRole="Idiomas" />
+        </EntityType>
+        <EntityType Name="ExperienciaLaborale">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Compañia" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Posicion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Fecha_Inicio" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Fecha_Fin" Type="DateTime" Precision="0" />
+          <Property Name="AplicanteId" Type="Int32" />
+          <NavigationProperty Name="Aplicante" Relationship="Self.FK__Experienc__Aplic__440B1D61" FromRole="ExperienciaLaborales" ToRole="Aplicantes" />
+        </EntityType>
+        <EntityType Name="GradoEstudio">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre_Institucion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Titulo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Fecha_Graduacion" Type="DateTime" Precision="0" />
+          <Property Name="AplicanteId" Type="Int32" />
+          <NavigationProperty Name="Aplicante" Relationship="Self.FK__GradoEstu__Aplic__49C3F6B7" FromRole="GradoEstudios" ToRole="Aplicantes" />
+        </EntityType>
+        <EntityType Name="Idioma">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Aplicantes" Relationship="Self.AplicantesIdiomas" FromRole="Idiomas" ToRole="Aplicantes" />
+        </EntityType>
+        <EntityType Name="Posicione">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Salario_Maximo" Type="Int32" Nullable="false" />
+          <Property Name="Salario_Minimo" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Aplicantes" Relationship="Self.FK__Aplicante__IdPos__3C69FB99" FromRole="Posiciones" ToRole="Aplicantes" />
+        </EntityType>
+        <EntityType Name="Recomendacione">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre_Empleado_Recomienda" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="AplicanteId" Type="Int32" />
+          <NavigationProperty Name="Aplicante" Relationship="Self.FK__Recomenda__Aplic__46E78A0C" FromRole="Recomendaciones" ToRole="Aplicantes" />
+        </EntityType>
+        <Association Name="FK__Aplicante__IdPos__3C69FB99">
+          <End Role="Posiciones" Type="Self.Posicione" Multiplicity="0..1" />
+          <End Role="Aplicantes" Type="Self.Aplicante" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Posiciones">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Aplicantes">
+              <PropertyRef Name="IdPosicion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Experienc__Aplic__440B1D61">
+          <End Role="Aplicantes" Type="Self.Aplicante" Multiplicity="0..1" />
+          <End Role="ExperienciaLaborales" Type="Self.ExperienciaLaborale" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Aplicantes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ExperienciaLaborales">
+              <PropertyRef Name="AplicanteId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__GradoEstu__Aplic__49C3F6B7">
+          <End Role="Aplicantes" Type="Self.Aplicante" Multiplicity="0..1" />
+          <End Role="GradoEstudios" Type="Self.GradoEstudio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Aplicantes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="GradoEstudios">
+              <PropertyRef Name="AplicanteId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Recomenda__Aplic__46E78A0C">
+          <End Role="Aplicantes" Type="Self.Aplicante" Multiplicity="0..1" />
+          <End Role="Recomendaciones" Type="Self.Recomendacione" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Aplicantes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Recomendaciones">
+              <PropertyRef Name="AplicanteId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="AplicantesIdiomas">
+          <End Role="Aplicantes" Type="Self.Aplicante" Multiplicity="*" />
+          <End Role="Idiomas" Type="Self.Idioma" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="RRHHEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Aplicantes" EntityType="Self.Aplicante" />
+          <EntitySet Name="ExperienciaLaborales" EntityType="Self.ExperienciaLaborale" />
+          <EntitySet Name="GradoEstudios" EntityType="Self.GradoEstudio" />
+          <EntitySet Name="Idiomas" EntityType="Self.Idioma" />
+          <EntitySet Name="Posiciones" EntityType="Self.Posicione" />
+          <EntitySet Name="Recomendaciones" EntityType="Self.Recomendacione" />
+          <AssociationSet Name="FK__Aplicante__IdPos__3C69FB99" Association="Self.FK__Aplicante__IdPos__3C69FB99">
+            <End Role="Posiciones" EntitySet="Posiciones" />
+            <End Role="Aplicantes" EntitySet="Aplicantes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Experienc__Aplic__440B1D61" Association="Self.FK__Experienc__Aplic__440B1D61">
+            <End Role="Aplicantes" EntitySet="Aplicantes" />
+            <End Role="ExperienciaLaborales" EntitySet="ExperienciaLaborales" />
+          </AssociationSet>
+          <AssociationSet Name="FK__GradoEstu__Aplic__49C3F6B7" Association="Self.FK__GradoEstu__Aplic__49C3F6B7">
+            <End Role="Aplicantes" EntitySet="Aplicantes" />
+            <End Role="GradoEstudios" EntitySet="GradoEstudios" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Recomenda__Aplic__46E78A0C" Association="Self.FK__Recomenda__Aplic__46E78A0C">
+            <End Role="Aplicantes" EntitySet="Aplicantes" />
+            <End Role="Recomendaciones" EntitySet="Recomendaciones" />
+          </AssociationSet>
+          <AssociationSet Name="AplicantesIdiomas" Association="Self.AplicantesIdiomas">
+            <End Role="Aplicantes" EntitySet="Aplicantes" />
+            <End Role="Idiomas" EntitySet="Idiomas" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="RRHHModelStoreContainer" CdmEntityContainer="RRHHEntities">
+          <EntitySetMapping Name="Aplicantes">
+            <EntityTypeMapping TypeName="RRHHModel.Aplicante">
+              <MappingFragment StoreEntitySet="Aplicantes">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="IdPosicion" ColumnName="IdPosicion" />
+                <ScalarProperty Name="Salario_Esperado" ColumnName="Salario_Esperado" />
+                <ScalarProperty Name="Fecha_Ultima_Aplicacion" ColumnName="Fecha_Ultima_Aplicacion" />
+                <ScalarProperty Name="Cedula" ColumnName="Cedula" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ExperienciaLaborales">
+            <EntityTypeMapping TypeName="RRHHModel.ExperienciaLaborale">
+              <MappingFragment StoreEntitySet="ExperienciaLaborales">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Compañia" ColumnName="Compañia" />
+                <ScalarProperty Name="Posicion" ColumnName="Posicion" />
+                <ScalarProperty Name="Fecha_Inicio" ColumnName="Fecha_Inicio" />
+                <ScalarProperty Name="Fecha_Fin" ColumnName="Fecha_Fin" />
+                <ScalarProperty Name="AplicanteId" ColumnName="AplicanteId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GradoEstudios">
+            <EntityTypeMapping TypeName="RRHHModel.GradoEstudio">
+              <MappingFragment StoreEntitySet="GradoEstudios">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Nombre_Institucion" ColumnName="Nombre_Institucion" />
+                <ScalarProperty Name="Titulo" ColumnName="Titulo" />
+                <ScalarProperty Name="Fecha_Graduacion" ColumnName="Fecha_Graduacion" />
+                <ScalarProperty Name="AplicanteId" ColumnName="AplicanteId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Idiomas">
+            <EntityTypeMapping TypeName="RRHHModel.Idioma">
+              <MappingFragment StoreEntitySet="Idiomas">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Posiciones">
+            <EntityTypeMapping TypeName="RRHHModel.Posicione">
+              <MappingFragment StoreEntitySet="Posiciones">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Salario_Maximo" ColumnName="Salario_Maximo" />
+                <ScalarProperty Name="Salario_Minimo" ColumnName="Salario_Minimo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Recomendaciones">
+            <EntityTypeMapping TypeName="RRHHModel.Recomendacione">
+              <MappingFragment StoreEntitySet="Recomendaciones">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Nombre_Empleado_Recomienda" ColumnName="Nombre_Empleado_Recomienda" />
+                <ScalarProperty Name="AplicanteId" ColumnName="AplicanteId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="AplicantesIdiomas" TypeName="RRHHModel.AplicantesIdiomas" StoreEntitySet="AplicantesIdiomas">
+            <EndProperty Name="Aplicantes">
+              <ScalarProperty Name="Id" ColumnName="IdAplicante" />
+            </EndProperty>
+            <EndProperty Name="Idiomas">
+              <ScalarProperty Name="Id" ColumnName="IdIdiomas" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

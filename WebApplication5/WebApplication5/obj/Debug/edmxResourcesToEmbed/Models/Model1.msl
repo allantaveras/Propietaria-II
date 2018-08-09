@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="RRHHModelStoreContainer" CdmEntityContainer="RRHHEntities">
+    <EntitySetMapping Name="Aplicantes">
+      <EntityTypeMapping TypeName="RRHHModel.Aplicante">
+        <MappingFragment StoreEntitySet="Aplicantes">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="IdPosicion" ColumnName="IdPosicion" />
+          <ScalarProperty Name="Salario_Esperado" ColumnName="Salario_Esperado" />
+          <ScalarProperty Name="Fecha_Ultima_Aplicacion" ColumnName="Fecha_Ultima_Aplicacion" />
+          <ScalarProperty Name="Cedula" ColumnName="Cedula" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ExperienciaLaborales">
+      <EntityTypeMapping TypeName="RRHHModel.ExperienciaLaborale">
+        <MappingFragment StoreEntitySet="ExperienciaLaborales">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Compañia" ColumnName="Compañia" />
+          <ScalarProperty Name="Posicion" ColumnName="Posicion" />
+          <ScalarProperty Name="Fecha_Inicio" ColumnName="Fecha_Inicio" />
+          <ScalarProperty Name="Fecha_Fin" ColumnName="Fecha_Fin" />
+          <ScalarProperty Name="AplicanteId" ColumnName="AplicanteId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GradoEstudios">
+      <EntityTypeMapping TypeName="RRHHModel.GradoEstudio">
+        <MappingFragment StoreEntitySet="GradoEstudios">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Nombre_Institucion" ColumnName="Nombre_Institucion" />
+          <ScalarProperty Name="Titulo" ColumnName="Titulo" />
+          <ScalarProperty Name="Fecha_Graduacion" ColumnName="Fecha_Graduacion" />
+          <ScalarProperty Name="AplicanteId" ColumnName="AplicanteId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Idiomas">
+      <EntityTypeMapping TypeName="RRHHModel.Idioma">
+        <MappingFragment StoreEntitySet="Idiomas">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Posiciones">
+      <EntityTypeMapping TypeName="RRHHModel.Posicione">
+        <MappingFragment StoreEntitySet="Posiciones">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Salario_Maximo" ColumnName="Salario_Maximo" />
+          <ScalarProperty Name="Salario_Minimo" ColumnName="Salario_Minimo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Recomendaciones">
+      <EntityTypeMapping TypeName="RRHHModel.Recomendacione">
+        <MappingFragment StoreEntitySet="Recomendaciones">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Nombre_Empleado_Recomienda" ColumnName="Nombre_Empleado_Recomienda" />
+          <ScalarProperty Name="AplicanteId" ColumnName="AplicanteId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="AplicantesIdiomas" TypeName="RRHHModel.AplicantesIdiomas" StoreEntitySet="AplicantesIdiomas">
+      <EndProperty Name="Aplicantes">
+        <ScalarProperty Name="Id" ColumnName="IdAplicante" />
+      </EndProperty>
+      <EndProperty Name="Idiomas">
+        <ScalarProperty Name="Id" ColumnName="IdIdiomas" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping>

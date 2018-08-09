@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="5e50f813c072462e8df5c12b646be5f2" Name="Diagram1">
+        <EntityTypeShape EntityType="RRHHModel.Aplicante" Width="1.5" PointX="3" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="RRHHModel.ExperienciaLaborale" Width="1.5" PointX="5.25" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="RRHHModel.GradoEstudio" Width="1.5" PointX="5.25" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="RRHHModel.Idioma" Width="1.5" PointX="5.25" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="RRHHModel.Posicione" Width="1.5" PointX="0.75" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="RRHHModel.Recomendacione" Width="1.5" PointX="5.25" PointY="9.75" IsExpanded="true" />
+        <AssociationConnector Association="RRHHModel.FK__Aplicante__IdPos__3C69FB99" ManuallyRouted="false" />
+        <AssociationConnector Association="RRHHModel.FK__Experienc__Aplic__440B1D61" ManuallyRouted="false" />
+        <AssociationConnector Association="RRHHModel.FK__GradoEstu__Aplic__49C3F6B7" ManuallyRouted="false" />
+        <AssociationConnector Association="RRHHModel.FK__Recomenda__Aplic__46E78A0C" ManuallyRouted="false" />
+        <AssociationConnector Association="RRHHModel.AplicantesIdiomas" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
