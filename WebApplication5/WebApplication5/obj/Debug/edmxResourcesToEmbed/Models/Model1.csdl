@@ -15,6 +15,12 @@
     <NavigationProperty Name="GradoEstudios" Relationship="Self.FK__GradoEstu__Aplic__49C3F6B7" FromRole="Aplicantes" ToRole="GradoEstudios" />
     <NavigationProperty Name="Recomendaciones" Relationship="Self.FK__Recomenda__Aplic__46E78A0C" FromRole="Aplicantes" ToRole="Recomendaciones" />
     <NavigationProperty Name="Idiomas" Relationship="Self.AplicantesIdiomas" FromRole="Aplicantes" ToRole="Idiomas" />
+    <Property Name="Estado" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="Empresa" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Aplicantes1" Relationship="RRHHModel.FK_Aplicantes_Aplicantes" FromRole="Aplicante" ToRole="Aplicante1" />
+    <NavigationProperty Name="Aplicante1" Relationship="RRHHModel.FK_Aplicantes_Aplicantes" FromRole="Aplicante1" ToRole="Aplicante" />
+    <NavigationProperty Name="Empresa1" Relationship="RRHHModel.FK_Aplicantes_Empresa" FromRole="Aplicante" ToRole="Empresa" />
+    <NavigationProperty Name="Educ_Continua" Relationship="RRHHModel.FK_Educ_Continua_Aplicantes" FromRole="Aplicante" ToRole="Educ_Continua" />
   </EntityType>
   <EntityType Name="ExperienciaLaborale">
     <Key>
@@ -145,5 +151,76 @@
       <End Role="Aplicantes" EntitySet="Aplicantes" />
       <End Role="Idiomas" EntitySet="Idiomas" />
     </AssociationSet>
+    <EntitySet Name="Educ_Continua" EntityType="RRHHModel.Educ_Continua" />
+    <EntitySet Name="Empresas" EntityType="RRHHModel.Empresa" />
+    <AssociationSet Name="FK_Aplicantes_Aplicantes" Association="RRHHModel.FK_Aplicantes_Aplicantes">
+      <End Role="Aplicante" EntitySet="Aplicantes" />
+      <End Role="Aplicante1" EntitySet="Aplicantes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Aplicantes_Empresa" Association="RRHHModel.FK_Aplicantes_Empresa">
+      <End Role="Empresa" EntitySet="Empresas" />
+      <End Role="Aplicante" EntitySet="Aplicantes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Educ_Continua_Aplicantes" Association="RRHHModel.FK_Educ_Continua_Aplicantes">
+      <End Role="Aplicante" EntitySet="Aplicantes" />
+      <End Role="Educ_Continua" EntitySet="Educ_Continua" />
+    </AssociationSet>
   </EntityContainer>
+  <EntityType Name="Educ_Continua">
+    <Key>
+      <PropertyRef Name="IDEducacionContinua" />
+    </Key>
+    <Property Name="IDEducacionContinua" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IDAplicante" Type="Int32" Nullable="false" />
+    <Property Name="Costo" Type="Int32" />
+    <Property Name="Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Duracion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Empresa" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Aplicante" Relationship="RRHHModel.FK_Educ_Continua_Aplicantes" FromRole="Educ_Continua" ToRole="Aplicante" />
+  </EntityType>
+  <EntityType Name="Empresa">
+    <Key>
+      <PropertyRef Name="Nombre" />
+    </Key>
+    <Property Name="IDEmpresa" Type="Int32" Nullable="false" />
+    <Property Name="Nombre" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="false" />
+    <Property Name="Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Aplicantes" Relationship="RRHHModel.FK_Aplicantes_Empresa" FromRole="Empresa" ToRole="Aplicante" />
+  </EntityType>
+  <Association Name="FK_Aplicantes_Aplicantes">
+    <End Type="RRHHModel.Aplicante" Role="Aplicante" Multiplicity="1" />
+    <End Type="RRHHModel.Aplicante" Role="Aplicante1" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Aplicante">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Aplicante1">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Aplicantes_Empresa">
+    <End Type="RRHHModel.Empresa" Role="Empresa" Multiplicity="0..1" />
+    <End Type="RRHHModel.Aplicante" Role="Aplicante" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Empresa">
+        <PropertyRef Name="Nombre" />
+      </Principal>
+      <Dependent Role="Aplicante">
+        <PropertyRef Name="Empresa" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Educ_Continua_Aplicantes">
+    <End Type="RRHHModel.Aplicante" Role="Aplicante" Multiplicity="1" />
+    <End Type="RRHHModel.Educ_Continua" Role="Educ_Continua" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Aplicante">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Educ_Continua">
+        <PropertyRef Name="IDEducacionContinua" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>

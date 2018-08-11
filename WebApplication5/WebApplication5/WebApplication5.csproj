@@ -193,6 +193,8 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AplicantesController.cs" />
+    <Compile Include="Controllers\Educ_ContinuaController.cs" />
+    <Compile Include="Controllers\EmpresasController.cs" />
     <Compile Include="Controllers\ExperienciaLaboralesController.cs" />
     <Compile Include="Controllers\GradoEstudiosController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -205,6 +207,12 @@
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Aplicante.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Educ_Continua.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Empresa.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ExperienciaLaborale.cs">
@@ -344,6 +352,16 @@
     <Content Include="Views\Recomendaciones\Details.cshtml" />
     <Content Include="Views\Recomendaciones\Edit.cshtml" />
     <Content Include="Views\Recomendaciones\Index.cshtml" />
+    <Content Include="Views\Empresas\Create.cshtml" />
+    <Content Include="Views\Empresas\Delete.cshtml" />
+    <Content Include="Views\Empresas\Details.cshtml" />
+    <Content Include="Views\Empresas\Edit.cshtml" />
+    <Content Include="Views\Empresas\Index.cshtml" />
+    <Content Include="Views\Educ_Continua\Create.cshtml" />
+    <Content Include="Views\Educ_Continua\Delete.cshtml" />
+    <Content Include="Views\Educ_Continua\Details.cshtml" />
+    <Content Include="Views\Educ_Continua\Edit.cshtml" />
+    <Content Include="Views\Educ_Continua\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

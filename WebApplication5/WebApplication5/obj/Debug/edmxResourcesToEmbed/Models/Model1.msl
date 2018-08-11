@@ -4,6 +4,8 @@
     <EntitySetMapping Name="Aplicantes">
       <EntityTypeMapping TypeName="RRHHModel.Aplicante">
         <MappingFragment StoreEntitySet="Aplicantes">
+          <ScalarProperty Name="Empresa" ColumnName="Empresa" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Nombre" ColumnName="Nombre" />
           <ScalarProperty Name="IdPosicion" ColumnName="IdPosicion" />
@@ -71,5 +73,26 @@
         <ScalarProperty Name="Id" ColumnName="IdIdiomas" />
       </EndProperty>
     </AssociationSetMapping>
+    <EntitySetMapping Name="Educ_Continua">
+      <EntityTypeMapping TypeName="RRHHModel.Educ_Continua">
+        <MappingFragment StoreEntitySet="Educ_Continua">
+          <ScalarProperty Name="Empresa" ColumnName="Empresa" />
+          <ScalarProperty Name="Duracion" ColumnName="Duracion" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+          <ScalarProperty Name="Costo" ColumnName="Costo" />
+          <ScalarProperty Name="IDAplicante" ColumnName="IDAplicante" />
+          <ScalarProperty Name="IDEducacionContinua" ColumnName="IDEducacionContinua" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Empresas">
+      <EntityTypeMapping TypeName="RRHHModel.Empresa">
+        <MappingFragment StoreEntitySet="Empresa">
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="IDEmpresa" ColumnName="IDEmpresa" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

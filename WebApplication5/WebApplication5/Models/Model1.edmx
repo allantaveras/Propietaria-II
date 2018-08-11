@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="RRHHModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="RRHHModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Aplicantes">
           <Key>
             <PropertyRef Name="Id" />
@@ -15,6 +15,8 @@
           <Property Name="Salario_Esperado" Type="int" Nullable="false" />
           <Property Name="Fecha_Ultima_Aplicacion" Type="date" />
           <Property Name="Cedula" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Estado" Type="varchar" MaxLength="15" />
+          <Property Name="Empresa" Type="varchar" MaxLength="25" />
         </EntityType>
         <EntityType Name="AplicantesIdiomas">
           <Key>
@@ -23,6 +25,25 @@
           </Key>
           <Property Name="IdAplicante" Type="int" Nullable="false" />
           <Property Name="IdIdiomas" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Educ_Continua">
+          <Key>
+            <PropertyRef Name="IDEducacionContinua" />
+          </Key>
+          <Property Name="IDEducacionContinua" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IDAplicante" Type="int" Nullable="false" />
+          <Property Name="Costo" Type="int" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="50" />
+          <Property Name="Duracion" Type="varchar" MaxLength="50" />
+          <Property Name="Empresa" Type="varchar" MaxLength="15" />
+        </EntityType>
+        <EntityType Name="Empresa">
+          <Key>
+            <PropertyRef Name="Nombre" />
+          </Key>
+          <Property Name="IDEmpresa" Type="int" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="ExperienciaLaborales">
           <Key>
@@ -141,9 +162,47 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Aplicantes_Aplicantes">
+          <End Role="Aplicantes" Type="Self.Aplicantes" Multiplicity="1" />
+          <End Role="Aplicantes1" Type="Self.Aplicantes" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Aplicantes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Aplicantes1">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Aplicantes_Empresa">
+          <End Role="Empresa" Type="Self.Empresa" Multiplicity="0..1" />
+          <End Role="Aplicantes" Type="Self.Aplicantes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empresa">
+              <PropertyRef Name="Nombre" />
+            </Principal>
+            <Dependent Role="Aplicantes">
+              <PropertyRef Name="Empresa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Educ_Continua_Aplicantes">
+          <End Role="Aplicantes" Type="Self.Aplicantes" Multiplicity="1" />
+          <End Role="Educ_Continua" Type="Self.Educ_Continua" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Aplicantes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Educ_Continua">
+              <PropertyRef Name="IDEducacionContinua" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="RRHHModelStoreContainer">
           <EntitySet Name="Aplicantes" EntityType="Self.Aplicantes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AplicantesIdiomas" EntityType="Self.AplicantesIdiomas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Educ_Continua" EntityType="Self.Educ_Continua" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Empresa" EntityType="Self.Empresa" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ExperienciaLaborales" EntityType="Self.ExperienciaLaborales" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GradoEstudios" EntityType="Self.GradoEstudios" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Idiomas" EntityType="Self.Idiomas" Schema="dbo" store:Type="Tables" />
@@ -173,9 +232,20 @@
             <End Role="Aplicantes" EntitySet="Aplicantes" />
             <End Role="Recomendaciones" EntitySet="Recomendaciones" />
           </AssociationSet>
+          <AssociationSet Name="FK_Aplicantes_Aplicantes" Association="Self.FK_Aplicantes_Aplicantes">
+            <End Role="Aplicantes" EntitySet="Aplicantes" />
+            <End Role="Aplicantes1" EntitySet="Aplicantes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Aplicantes_Empresa" Association="Self.FK_Aplicantes_Empresa">
+            <End Role="Empresa" EntitySet="Empresa" />
+            <End Role="Aplicantes" EntitySet="Aplicantes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Educ_Continua_Aplicantes" Association="Self.FK_Educ_Continua_Aplicantes">
+            <End Role="Aplicantes" EntitySet="Aplicantes" />
+            <End Role="Educ_Continua" EntitySet="Educ_Continua" />
+          </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="RRHHModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -194,6 +264,12 @@
           <NavigationProperty Name="GradoEstudios" Relationship="Self.FK__GradoEstu__Aplic__49C3F6B7" FromRole="Aplicantes" ToRole="GradoEstudios" />
           <NavigationProperty Name="Recomendaciones" Relationship="Self.FK__Recomenda__Aplic__46E78A0C" FromRole="Aplicantes" ToRole="Recomendaciones" />
           <NavigationProperty Name="Idiomas" Relationship="Self.AplicantesIdiomas" FromRole="Aplicantes" ToRole="Idiomas" />
+          <Property Name="Estado" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Empresa" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Aplicantes1" Relationship="RRHHModel.FK_Aplicantes_Aplicantes" FromRole="Aplicante" ToRole="Aplicante1" />
+          <NavigationProperty Name="Aplicante1" Relationship="RRHHModel.FK_Aplicantes_Aplicantes" FromRole="Aplicante1" ToRole="Aplicante" />
+          <NavigationProperty Name="Empresa1" Relationship="RRHHModel.FK_Aplicantes_Empresa" FromRole="Aplicante" ToRole="Empresa" />
+          <NavigationProperty Name="Educ_Continua" Relationship="RRHHModel.FK_Educ_Continua_Aplicantes" FromRole="Aplicante" ToRole="Educ_Continua" />
         </EntityType>
         <EntityType Name="ExperienciaLaborale">
           <Key>
@@ -324,7 +400,78 @@
             <End Role="Aplicantes" EntitySet="Aplicantes" />
             <End Role="Idiomas" EntitySet="Idiomas" />
           </AssociationSet>
+          <EntitySet Name="Educ_Continua" EntityType="RRHHModel.Educ_Continua" />
+          <EntitySet Name="Empresas" EntityType="RRHHModel.Empresa" />
+          <AssociationSet Name="FK_Aplicantes_Aplicantes" Association="RRHHModel.FK_Aplicantes_Aplicantes">
+            <End Role="Aplicante" EntitySet="Aplicantes" />
+            <End Role="Aplicante1" EntitySet="Aplicantes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Aplicantes_Empresa" Association="RRHHModel.FK_Aplicantes_Empresa">
+            <End Role="Empresa" EntitySet="Empresas" />
+            <End Role="Aplicante" EntitySet="Aplicantes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Educ_Continua_Aplicantes" Association="RRHHModel.FK_Educ_Continua_Aplicantes">
+            <End Role="Aplicante" EntitySet="Aplicantes" />
+            <End Role="Educ_Continua" EntitySet="Educ_Continua" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Educ_Continua">
+          <Key>
+            <PropertyRef Name="IDEducacionContinua" />
+          </Key>
+          <Property Name="IDEducacionContinua" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IDAplicante" Type="Int32" Nullable="false" />
+          <Property Name="Costo" Type="Int32" />
+          <Property Name="Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Duracion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Empresa" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Aplicante" Relationship="RRHHModel.FK_Educ_Continua_Aplicantes" FromRole="Educ_Continua" ToRole="Aplicante" />
+        </EntityType>
+        <EntityType Name="Empresa">
+          <Key>
+            <PropertyRef Name="Nombre" />
+          </Key>
+          <Property Name="IDEmpresa" Type="Int32" Nullable="false" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Aplicantes" Relationship="RRHHModel.FK_Aplicantes_Empresa" FromRole="Empresa" ToRole="Aplicante" />
+        </EntityType>
+        <Association Name="FK_Aplicantes_Aplicantes">
+          <End Type="RRHHModel.Aplicante" Role="Aplicante" Multiplicity="1" />
+          <End Type="RRHHModel.Aplicante" Role="Aplicante1" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Aplicante">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Aplicante1">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Aplicantes_Empresa">
+          <End Type="RRHHModel.Empresa" Role="Empresa" Multiplicity="0..1" />
+          <End Type="RRHHModel.Aplicante" Role="Aplicante" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empresa">
+              <PropertyRef Name="Nombre" />
+            </Principal>
+            <Dependent Role="Aplicante">
+              <PropertyRef Name="Empresa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Educ_Continua_Aplicantes">
+          <End Type="RRHHModel.Aplicante" Role="Aplicante" Multiplicity="1" />
+          <End Type="RRHHModel.Educ_Continua" Role="Educ_Continua" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Aplicante">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Educ_Continua">
+              <PropertyRef Name="IDEducacionContinua" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -334,6 +481,8 @@
           <EntitySetMapping Name="Aplicantes">
             <EntityTypeMapping TypeName="RRHHModel.Aplicante">
               <MappingFragment StoreEntitySet="Aplicantes">
+                <ScalarProperty Name="Empresa" ColumnName="Empresa" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
                 <ScalarProperty Name="IdPosicion" ColumnName="IdPosicion" />
@@ -401,6 +550,27 @@
               <ScalarProperty Name="Id" ColumnName="IdIdiomas" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="Educ_Continua">
+            <EntityTypeMapping TypeName="RRHHModel.Educ_Continua">
+              <MappingFragment StoreEntitySet="Educ_Continua">
+                <ScalarProperty Name="Empresa" ColumnName="Empresa" />
+                <ScalarProperty Name="Duracion" ColumnName="Duracion" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Costo" ColumnName="Costo" />
+                <ScalarProperty Name="IDAplicante" ColumnName="IDAplicante" />
+                <ScalarProperty Name="IDEducacionContinua" ColumnName="IDEducacionContinua" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Empresas">
+            <EntityTypeMapping TypeName="RRHHModel.Empresa">
+              <MappingFragment StoreEntitySet="Empresa">
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="IDEmpresa" ColumnName="IDEmpresa" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

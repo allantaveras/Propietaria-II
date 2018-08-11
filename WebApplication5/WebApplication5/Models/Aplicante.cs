@@ -29,6 +29,8 @@ namespace WebApplication5.Models
         public int Salario_Esperado { get; set; }
         public Nullable<System.DateTime> Fecha_Ultima_Aplicacion { get; set; }
         public string Cedula { get; set; }
+        public string Estado { get; set; }
+        public string Empresa { get; set; }
     
         public virtual Posicione Posicione { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -39,5 +41,9 @@ namespace WebApplication5.Models
         public virtual ICollection<Recomendacione> Recomendaciones { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Idioma> Idiomas { get; set; }
+        public virtual Aplicante Aplicantes1 { get; set; }
+        public virtual Aplicante Aplicante1 { get; set; }
+        public virtual Empresa Empresa1 { get; set; }
+        public virtual Educ_Continua Educ_Continua { get; set; }
     }
 }

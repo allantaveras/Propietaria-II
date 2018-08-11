@@ -31,5 +31,7 @@ namespace WebApplication5.Models
         public virtual DbSet<Idioma> Idiomas { get; set; }
         public virtual DbSet<Posicione> Posiciones { get; set; }
         public virtual DbSet<Recomendacione> Recomendaciones { get; set; }
+        public virtual DbSet<Educ_Continua> Educ_Continua { get; set; }
+        public virtual DbSet<Empresa> Empresas { get; set; }
     }
 }

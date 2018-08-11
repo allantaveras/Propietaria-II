@@ -16,6 +16,11 @@
         <AssociationConnector Association="RRHHModel.FK__GradoEstu__Aplic__49C3F6B7" ManuallyRouted="false" />
         <AssociationConnector Association="RRHHModel.FK__Recomenda__Aplic__46E78A0C" ManuallyRouted="false" />
         <AssociationConnector Association="RRHHModel.AplicantesIdiomas" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="RRHHModel.Educ_Continua" Width="1.5" PointX="5.25" PointY="12.875" />
+        <EntityTypeShape EntityType="RRHHModel.Empresa" Width="1.5" PointX="0.75" PointY="8.125" />
+        <AssociationConnector Association="RRHHModel.FK_Aplicantes_Aplicantes" />
+        <AssociationConnector Association="RRHHModel.FK_Aplicantes_Empresa" />
+        <AssociationConnector Association="RRHHModel.FK_Educ_Continua_Aplicantes" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
